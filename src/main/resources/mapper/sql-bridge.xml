@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.mapper.BridgeMapper">
+	<select id="selectPayList" resultType="project.dto.PayListDto">
+		select pl_idx, user_id1, user_id2, pl_money, pl_date
+			from pay_list
+		where pl_idx = #{plIdx}
+	</select>
+
+	<select id="selectPartnerDetail" resultType="project.dto.PartnerDetailDto">
+		select pd_idx, user_id1, user_id2, pd_money
+		from partner_detail
+		where pd_idx = #{pdIdx}
+	</select>
+	
+	<select id="selectPartnerContent" resultType="project.dto.PartnerContentDto">
+		select pc_idx, pc_content, pc_writer, pd_idx
+		from partner_content
+		where pd_idx = #{pdIdx}
+	</select>
+	
+	<insert id="insertPartnerContent" parameterType="project.dto.PartnerContentDto">
+		insert into partner_content (pc_content, pc_writer )
+		values (#{pcContent}, #{pcWriter} )
+	</insert>
+	
+	<update id="updatePartnerContent" parameterType="project.dto.PartnerContentDto">
+		update partner_content
+		   set pc_writer = #{pcWriter}, 
+		       pc_content = #{pcContent} 
+
+		 where pc_idx = #{pcIdx} 		 
+	</update>
+	
+	<delete id="deletePartnerContent" parameterType="int">
+		update partner_content
+		   set deleted_yn = 'Y' 
+'
+		 where pc_idx = #{pcIdx} 		 
+	</delete>
+	
+	<select id="selectPartnerComment" resultType="project.dto.PartnerCommentDto">
+		select pdc_comment, user_id, pdc_idx, pc_idx
+		from partner_detail_comment
+		where pc_idx = #{pcIdx}
+	</select>
+	
+	<insert id="insertPartnerComment" parameterType="project.dto.PartnerCommentDto">
+		insert into partner_detail_comment (pdc_comment, user_id)
+		values (#{pdcComment}, #{userId} )
+	</insert>
+	
+	<update id="updatePartnerComment" parameterType="project.dto.PartnerCommentDto">
+		update partner_detail_comment
+		   set user_id = #{userId}, 
+		       pc_content = #{pcContent} 
+		    
+		       
+		 where pc_idx = #{pcIdx} 		 
+	</update>
+	
+	<delete id="deletePartnerComment" parameterType="int">
+		update partner_detail_comment
+		   set deleted_yn = 'Y' 
+		       
+		       
+		 where pc_idx = #{pcIdx} 		 
+	</delete>
+</mapper>
