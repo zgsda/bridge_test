@@ -36,5 +36,6 @@ public class BridgeServiceImpl implements BridgeService{
 		return bridgeMapper.selectPartnerComment(pcIdx);
 	}
 	
+	// 안녕 지민
 	
 }
