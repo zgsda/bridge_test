@@ -11,6 +11,7 @@ public class PartnerContentDto {
 	private String pcContent;
 	private String pcWriter;
 	private int pdIdx;
+	private String pcImg;
 //	private Date pcDate;
 
 }

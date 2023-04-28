@@ -1,6 +1,7 @@
 package project.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +16,7 @@ import project.mapper.LoginMapper;
 
 @Service 
 public class LoginServiceImpl implements LoginService {
-
+	
 	@Autowired
 	private LoginMapper loginMapper;
 	//해시값 설정
@@ -45,4 +46,5 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return new User(userDto.getUserId(),userDto.getUserPw(),true,true,true,true,new ArrayList<>());
 	}
+	
 }

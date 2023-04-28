@@ -17,6 +17,11 @@
 		insert into users (user_id, user_pw, user_name, user_nickname, user_phone_number, user_email, user_point, user_halted, report_count)
 		values (#{userId}, #{userPw}, #{userName}, #{userNickname}, #{userPhoneNumber}, #{userEmail}, #{userPoint}, #{userHalted}, #{reportCount})
 	</insert>
+	
+	<insert id ="kakaoRegistUser" parameterType="project.dto.UserDto">
+		insert into users (user_nickname)
+		values (#{userNickname})
+	</insert>
 
-
+	
 </mapper>

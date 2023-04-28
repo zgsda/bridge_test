@@ -14,57 +14,63 @@
 		where pd_idx = #{pdIdx}
 	</select>
 	
+	<!-- 파트너 작업페이지 게시글 조회 -->
 	<select id="selectPartnerContent" resultType="project.dto.PartnerContentDto">
 		select pc_idx, pc_content, pc_writer, pd_idx
 		from partner_content
-		where pd_idx = #{pdIdx}
+		where deleted_yn = 'N'
+		 and pd_idx = #{pdIdx}
 	</select>
 	
+	<!-- 파트너 작업 페이지 게시글 등록 -->
 	<insert id="insertPartnerContent" parameterType="project.dto.PartnerContentDto">
-		insert into partner_content (pc_content, pc_writer )
-		values (#{pcContent}, #{pcWriter} )
+		insert into partner_content (pc_content,pc_writer, pd_idx, pc_img )
+		values (#{pcContent}, #{pcWriter}, #{pdIdx}, #{pcImg} )
 	</insert>
 	
+	<!-- 파트너 작업페이지 게시글 수정 -->
 	<update id="updatePartnerContent" parameterType="project.dto.PartnerContentDto">
 		update partner_content
-		   set pc_writer = #{pcWriter}, 
-		       pc_content = #{pcContent} 
-
-		 where pc_idx = #{pcIdx} 		 
+		   set pc_content = #{pcContent},
+				pc_img = #{pcImg},
+				pc_idx = #{pcIdx}
+		 where pc_idx = #{pcIdx} 	 	 
 	</update>
-	
+	<!-- 파트너 작업페이지 게시글 삭제 -->
 	<delete id="deletePartnerContent" parameterType="int">
 		update partner_content
 		   set deleted_yn = 'Y' 
-'
 		 where pc_idx = #{pcIdx} 		 
 	</delete>
-	
-	<select id="selectPartnerComment" resultType="project.dto.PartnerCommentDto">
+	<!-- 파트너 작업페이지 게시글의 덧글 조회 -->
+	<select id="selectPartnerComment" parameterType="project.dto.PartnerDetailCommentDto">
 		select pdc_comment, user_id, pdc_idx, pc_idx
 		from partner_detail_comment
-		where pc_idx = #{pcIdx}
+		where comment_deleted_yn = 'N' and
+		      pc_idx = #{pcIdx}
 	</select>
 	
-	<insert id="insertPartnerComment" parameterType="project.dto.PartnerCommentDto">
+	<insert id="insertPartnerComment" parameterType="project.dto.PartnerDetailCommentDto">
 		insert into partner_detail_comment (pdc_comment, user_id)
 		values (#{pdcComment}, #{userId} )
 	</insert>
 	
-	<update id="updatePartnerComment" parameterType="project.dto.PartnerCommentDto">
+	<update id="updatePartnerComment" parameterType="project.dto.PartnerDetailCommentDto">
 		update partner_detail_comment
 		   set user_id = #{userId}, 
-		       pc_content = #{pcContent} 
-		    
-		       
-		 where pc_idx = #{pcIdx} 		 
+		       pdc_comment = #{pdcComment}  
+		 where pdc_idx = #{pdcIdx} 		 
 	</update>
 	
 	<delete id="deletePartnerComment" parameterType="int">
 		update partner_detail_comment
-		   set deleted_yn = 'Y' 
-		       
-		       
-		 where pc_idx = #{pcIdx} 		 
+		   set deleted_yn = 'Y'  
+		 where pdc_idx = #{pdcIdx} 		 
 	</delete>
+	
+	<select id="userIdCheck" parameterType="project.dto.UserDto" resultType="int">
+		select COUNT(*)
+		from users
+		where user_id = #{userId}
+	</select>
 </mapper>

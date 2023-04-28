@@ -8,4 +8,6 @@ import project.dto.UserDto;
 public interface LoginService extends UserDetailsService {
 	public UserDto login(LoginDto loginDto) throws Exception;
 	public int registUser(UserDto userDto) throws Exception;
+	
+	
 }
