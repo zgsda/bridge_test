@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.mapper.LoginMapper">
+	<select id="login" parameterType="project.dto.LoginDto" resultType="project.dto.UsersDto">
+		select user_id, user_pw, user_name, user_email,user_phone_number 
+		  from users
+		 where user_id = #{userId} and user_pw = #{userPw}
+	</select>
+		<select id="selectUserByUserId" parameterType="String" resultType="project.dto.UsersDto">
+		select user_id, user_pw, user_name, user_email,user_phone_number
+		  from users
+		 where user_id = #{userId}
+	</select>
+	
+	<insert id ="registUser" parameterType="project.dto.UsersDto">
+		insert into users (user_id, user_pw, user_name, user_nickname, user_phone_number, user_email)
+		values (#{userId}, #{userPw}, #{userName}, #{userNickName}, #{userPhoneNumber}, #{userEmail})
+	</insert>
+
+	<!-- 외부 로그인 -->
+	<select id ="passInformation" parameterType="project.dto.UsersDto" resultType="project.dto.UsersDto">
+		select user_nickname, user_email from users
+			where user_nickname = #{userNickName} and user_email=#{userEmail}
+	</select>
+	
+
+
+</mapper>
