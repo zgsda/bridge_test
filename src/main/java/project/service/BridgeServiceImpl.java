@@ -20,7 +20,7 @@ public class BridgeServiceImpl implements BridgeService{
 	
 	// 파트너 협업창 결제 내역
 	@Override
-	public List<PayListDto> selectPayList(PayListDto payListDto) throws Exception{
+	public PayListDto selectPayList(PayListDto payListDto) throws Exception{
 		return bridgeMapper.selectPayList(payListDto);
 	}
 	
@@ -36,6 +36,10 @@ public class BridgeServiceImpl implements BridgeService{
 		return bridgeMapper.selectPartnerComment(pcIdx);
 	}
 	
-	// 안녕 지민
+	// 4. 파트너 협업창 게시글의 댓글 작성
+	@Override
+	public int insertPartnerComment(PartnerDetailCommentDto partnerDetailCommentDto) throws Exception {
+		return bridgeMapper.insertPartnerComment(partnerDetailCommentDto);
+	}
 	
 }

@@ -37,18 +37,19 @@ public class bridgeApiController {
 
 	// 1. 파트너 협업창 결제 내역
 	@GetMapping("/api/bridge/paylist/{userId1}/{userId2}")
-	public ResponseEntity<List<PayListDto>> openPayList(@PathVariable("userId1") String userId1,
+	public ResponseEntity<PayListDto> openPayList(@PathVariable("userId1") String userId1,
 			@PathVariable("userId2") String userId2) throws Exception {
 		PayListDto payListDto = new PayListDto();
+		
 		payListDto.setUserId1(userId1);
 		payListDto.setUserId2(userId2);
 
-		List<PayListDto> list = bridgeService.selectPayList(payListDto);
+		PayListDto payListDto1 = bridgeService.selectPayList(payListDto);
 
-		if (!list.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.OK).body(list);
+		if (payListDto1 != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(payListDto1);
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(list);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
 
@@ -88,5 +89,8 @@ public class bridgeApiController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
+	
+	// 4. 파트너 협업창 게시글의 댓글 작성
+	@PostMapping("/api/bridge/partnerdetail/comment/write/{pcIdx}")
 
 }

@@ -25,5 +25,11 @@
 		where comment_deleted_yn = 'N' and
 		      pc_idx = #{pcIdx}
 	</select>
+	
+	<!-- 4. 파트너 협업창 게시글의 댓글 작성 -->
+	<insert id="insertPartnerComment" parameterType="project.dto.PartnerDetailCommentDto">
+		insert into partner_detail_comment (pdc_comment, user_id, pd_idx, pc-idx)
+		values (pdcComment, userId, pdIdx, pcIdx)
+	</insert>
 
 </mapper>
